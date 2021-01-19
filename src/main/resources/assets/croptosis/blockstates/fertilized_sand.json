@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "croptosis:block/fertilized_sand"
+      },
+      {
+        "model": "croptosis:block/fertilized_sand",
+        "y": 90
+      },
+      {
+        "model": "croptosis:block/fertilized_sand",
+        "y": 180
+      },
+      {
+        "model": "croptosis:block/fertilized_sand",
+        "y": 270
+      }
+    ]
+  }
+}
