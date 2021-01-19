@@ -30,7 +30,7 @@ public class BoneMealMixin {
                 world.setBlockState(pos, BlockRegistry.BLOCKS.get("fertilized_sand").getDefaultState());
                 success = true;
             } else if (state.getBlock() instanceof FertilizedSandBlock && state.get(FertilizedSandBlock.MAX_HEIGHT) < FertilizedSandBlock.MAX_TOTAL_HEIGHT && context.getStack().getCount() > state.get(FertilizedSandBlock.MAX_HEIGHT)) {
-                decrementAmount += state.get(FertilizedSandBlock.MAX_HEIGHT);
+                decrementAmount += state.get(FertilizedSandBlock.MAX_HEIGHT) - 2;
                 world.setBlockState(context.getBlockPos(), state.with(FertilizedSandBlock.MAX_HEIGHT, state.get(FertilizedSandBlock.MAX_HEIGHT) + 1));
                 success = true;
             }

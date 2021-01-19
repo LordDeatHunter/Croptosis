@@ -15,7 +15,7 @@ public class FertilizedSandBlock extends SandBlock {
 
     public FertilizedSandBlock(int color, Settings settings) {
         super(color, settings);
-        setDefaultState(getStateManager().getDefaultState().with(MAX_HEIGHT, 1));
+        setDefaultState(getStateManager().getDefaultState().with(MAX_HEIGHT, 3));
     }
 
     @Override
