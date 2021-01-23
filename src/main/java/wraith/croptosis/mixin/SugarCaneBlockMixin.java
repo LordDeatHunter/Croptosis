@@ -15,7 +15,6 @@ import java.util.Random;
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneBlockMixin {
 
-
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (world.isAir(pos.up())) {
@@ -38,8 +37,6 @@ public class SugarCaneBlockMixin {
             }
             ci.cancel();
         }
-
     }
-
 
 }

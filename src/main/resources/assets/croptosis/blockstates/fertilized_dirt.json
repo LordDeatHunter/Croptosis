@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "croptosis:block/fertilized_dirt"
+      },
+      {
+        "model": "croptosis:block/fertilized_dirt",
+        "y": 90
+      },
+      {
+        "model": "croptosis:block/fertilized_dirt",
+        "y": 180
+      },
+      {
+        "model": "croptosis:block/fertilized_dirt",
+        "y": 270
+      }
+    ]
+  }
+}

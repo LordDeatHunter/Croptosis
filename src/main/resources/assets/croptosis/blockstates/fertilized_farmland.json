@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=1": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=2": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=3": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=4": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=5": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=6": {
+      "model": "croptosis:block/fertilized_farmland"
+    },
+    "moisture=7": {
+      "model": "croptosis:block/fertilized_farmland_moist"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "croptosis:block/fertilized_dirt",
+    "top": "croptosis:block/fertilized_farmland"
+  }
+}
