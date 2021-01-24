@@ -16,6 +16,10 @@ public class ItemRegistry {
         put("fertilized_sand", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_sand"), new FabricItemSettings()));
         put("fertilized_farmland", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_farmland"), new FabricItemSettings()));
         put("fertilized_dirt", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_dirt"), new FabricItemSettings()));
+
+        put("potash_ore", new BlockItem(BlockRegistry.BLOCKS.get("potash_ore"), new FabricItemSettings()));
+        put("apatite_ore", new BlockItem(BlockRegistry.BLOCKS.get("apatite_ore"), new FabricItemSettings()));
+
         put("feather_meal", new BoneMealItem(new FabricItemSettings()));
         put("rotten_pile", new BoneMealItem(new FabricItemSettings()));
         put("apatite", new BoneMealItem(new FabricItemSettings()));

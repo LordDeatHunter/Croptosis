@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import wraith.croptosis.registry.BlockRegistry;
 import wraith.croptosis.registry.ItemRegistry;
+import wraith.croptosis.registry.OreRegistry;
 
 public class Croptosis implements ModInitializer {
 
@@ -16,6 +17,7 @@ public class Croptosis implements ModInitializer {
     public void onInitialize() {
         BlockRegistry.register();
         ItemRegistry.register();
+        OreRegistry.register();
         LOGGER.info("[Croptosis] has been initiated.");
     }
 
