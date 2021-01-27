@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "croptosis:potash_block"
+    }
+  ],
+  "result": {
+    "item": "croptosis:potash",
+    "count": 9
+  }
+}

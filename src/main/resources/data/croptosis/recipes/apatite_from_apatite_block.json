@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "croptosis:apatite_block"
+    }
+  ],
+  "result": {
+    "item": "croptosis:apatite",
+    "count": 9
+  }
+}

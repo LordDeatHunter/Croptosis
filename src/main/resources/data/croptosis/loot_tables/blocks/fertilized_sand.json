@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "fertilized_sand:fertilized_sand"
+          "name": "croptosis:fertilized_sand"
         }
       ],
       "conditions": [

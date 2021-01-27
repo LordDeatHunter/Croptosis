@@ -7,7 +7,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import wraith.croptosis.Croptosis;
+import wraith.croptosis.Utils;
 import wraith.croptosis.worldgen.CustomConfiguredFeatures;
 
 import java.util.HashMap;
@@ -16,8 +16,8 @@ import java.util.Map;
 public class OreRegistry {
 
     private static final HashMap<String, RegistryKey<ConfiguredFeature<?, ?>>> ORES = new HashMap<String, RegistryKey<ConfiguredFeature<?,?>>>(){{
-        put("potash_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Croptosis.ID("potash_ore")));
-        put("apatite_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Croptosis.ID("apatite_ore")));
+        put("potash_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Utils.ID("potash_ore")));
+        put("apatite_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Utils.ID("apatite_ore")));
     }};
 
 

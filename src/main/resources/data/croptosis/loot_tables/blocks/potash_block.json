@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "croptosis:fertilized_dirt"
+          "name": "croptosis:potash_block"
         }
       ],
       "conditions": [
