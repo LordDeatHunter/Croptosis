@@ -30,7 +30,10 @@ public class ItemRegistry {
         put("apatite", new BoneMealItem(new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("potash", new BoneMealItem(new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
 
-        put("watering_can", new WateringCanItem(new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("iron_watering_can", new WateringCanItem(2, 12, 4, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("gold_watering_can", new WateringCanItem(5, 6, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("diamond_watering_can", new WateringCanItem(3, 16, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("netherite_watering_can", new WateringCanItem(4, 20, 6, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
     }};
 
     public static void register() {

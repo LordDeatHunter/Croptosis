@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "Croptosis",
-  "description": "Make sand crops grow faster!",
+  "description": "Speed up crop production!",
   "authors": [
     "LordDeatHunter"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/croptosis",
-    "sources": ""
+    "sources": "https://github.com/LordDeatHunter/Croptosis"
   },
 
   "license": "MIT",
@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "wraith.croptosis.Croptosis"
+    ],
+    "client": [
+      "wraith.croptosis.CroptosisClient"
     ]
   },
   "mixins": [
@@ -29,8 +32,6 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.16.x"
-  },
-  "suggests": {
-    "flamingo": "*"
   }
+
 }

@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import wraith.croptosis.registry.BlockRegistry;
-import wraith.croptosis.registry.CustomModelPredicateProviderRegistry;
 import wraith.croptosis.registry.ItemRegistry;
 import wraith.croptosis.registry.OreRegistry;
 
@@ -18,7 +17,6 @@ public class Croptosis implements ModInitializer {
         BlockRegistry.register();
         ItemRegistry.register();
         OreRegistry.register();
-        CustomModelPredicateProviderRegistry.register();
         LOGGER.info("[Croptosis] has been initiated.");
     }
 

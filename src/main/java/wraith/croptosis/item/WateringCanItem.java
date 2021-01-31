@@ -21,16 +21,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import wraith.croptosis.Utils;
-import wraith.croptosis.registry.ItemRegistry;
 
 public class WateringCanItem extends Item {
 
-    public WateringCanItem(Settings settings) {
+    private final int range;
+    private final int chance;
+    private final int capacity;
+
+    public WateringCanItem(int range, int capacity, int chance, Settings settings) {
         super(settings);
+        this.range = range;
+        this.capacity = capacity;
+        this.chance = chance;
     }
 
     public static boolean isFilled(ItemStack stack) {
-        if (stack.isEmpty() || stack.getItem() != ItemRegistry.ITEMS.get("watering_can")) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem)) {
             return false;
         }
         if (stack.getSubTag("Croptosis") != null) {
@@ -59,7 +65,7 @@ public class WateringCanItem extends Item {
 
             if (world.getFluidState(pos).getFluid() instanceof WaterFluid) {
                 CompoundTag tag = stack.getOrCreateSubTag("Croptosis");
-                tag.putInt("StoredFluid", 24);
+                tag.putInt("StoredFluid", capacity);
             }
         } else {
             int xpos = (int) Math.floor(user.getBlockPos().getX());
@@ -81,10 +87,10 @@ public class WateringCanItem extends Item {
             if (world.isClient) {
                 return TypedActionResult.success(stack);
             }
-            for (int x = -2; x <= 2; ++x) {
-                for (int y = -2; y <= 2; ++y) {
-                    for (int z = -2; z <= 2; ++z) {
-                        if (Utils.getRandomIntInRange(1, 4) != 1) {
+            for (int x = -range; x <= range; ++x) {
+                for (int y = -3; y <= 3; ++y) {
+                    for (int z = -range; z <= range; ++z) {
+                        if (Utils.getRandomIntInRange(1, 100) > chance) {
                             continue;
                         }
                         BlockPos cropPos = new BlockPos(xpos + x, ypos + y, zpos + z);
@@ -98,9 +104,8 @@ public class WateringCanItem extends Item {
                     }
                 }
             }
-            return TypedActionResult.success(stack);
         }
-        return TypedActionResult.fail(stack);
+        return TypedActionResult.success(stack);
     }
 
 

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D  ",
+    "D D",
+    " W "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "W": {
+      "item": "croptosis:gold_watering_can"
+    }
+  },
+  "result": {
+    "item": "croptosis:diamond_watering_can"
+  }
+}

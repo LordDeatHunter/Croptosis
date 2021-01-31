@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G  ",
+    "G G",
+    " W "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "W": {
+      "item": "croptosis:iron_watering_can"
+    }
+  },
+  "result": {
+    "item": "croptosis:gold_watering_can"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "croptosis:item/filled_iron_watering_can"
+  }
+}

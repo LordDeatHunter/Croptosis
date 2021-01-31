@@ -20,5 +20,10 @@
   "item.croptosis.feather_meal": "Feather Meal",
   "item.croptosis.rotten_pile": "Rotten Pile",
 
-  "item.croptosis.watering_can": "Watering Can"
+  "item.croptosis.iron_watering_can": "Iron Watering Can",
+  "item.croptosis.gold_watering_can": "Gold Watering Can",
+  "item.croptosis.diamond_watering_can": "Diamond Watering Can",
+  "item.croptosis.netherite_watering_can": "Netherite Watering Can",
+
+  "itemGroup.croptosis.croptosis": "Croptosis"
 }
