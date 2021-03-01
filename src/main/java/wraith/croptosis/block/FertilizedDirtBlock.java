@@ -2,12 +2,11 @@ package wraith.croptosis.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CactusBlock;
-import net.minecraft.block.SugarCaneBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
+import wraith.croptosis.registry.BlockRegistry;
 
 import java.util.Random;
 
@@ -35,21 +34,14 @@ public class FertilizedDirtBlock extends Block {
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         super.randomTick(state, world, pos, random);
 
-        BlockState topBlock = world.getBlockState(pos.up());
-        int height = 1;
-        while (true) {
-            BlockState nextTopBlockState = world.getBlockState(pos.up(height));
-            Block nextTopBlock = nextTopBlockState.getBlock();
-            if (!(nextTopBlock instanceof SugarCaneBlock || nextTopBlock instanceof CactusBlock)) {
-                --height;
+        for (int height = 1; height <= state.get(FertilizedDirtBlock.MAX_HEIGHT); height++) {
+            BlockState topBlockState = world.getBlockState(pos.up(height));
+            Block topBlock = topBlockState.getBlock();
+            if (!(topBlock == BlockRegistry.BLOCKS.get("fertilized_dirt") || topBlock == BlockRegistry.BLOCKS.get("fertilized_sand"))) {
+                topBlock.randomTick(topBlockState, world, pos.up(height), random);
                 break;
-            } else {
-                topBlock = nextTopBlockState;
             }
-            ++height;
         }
-        BlockPos topBlockPos = pos.up(height);
-        topBlock.getBlock().randomTick(topBlock, world, topBlockPos, random);
     }
 
 }
