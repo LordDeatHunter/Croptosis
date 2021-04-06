@@ -34,6 +34,7 @@ public class ItemRegistry {
         put("gold_watering_can", new WateringCanItem(5, 6, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("diamond_watering_can", new WateringCanItem(3, 16, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("netherite_watering_can", new WateringCanItem(4, 20, 6, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("creative_watering_can", new WateringCanItem(10, 1, 101, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
     }};
 
     public static void register() {

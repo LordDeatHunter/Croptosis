@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import wraith.croptosis.Utils;
+import wraith.croptosis.registry.ItemRegistry;
 
 public class WateringCanItem extends Item {
 
@@ -72,7 +73,9 @@ public class WateringCanItem extends Item {
             int ypos = (int) Math.floor(user.getBlockPos().getY());
             int zpos = (int) Math.floor(user.getBlockPos().getZ());
             CompoundTag tag = stack.getSubTag("Croptosis");
-            tag.putInt("StoredFluid", tag.getInt("StoredFluid") - 1);
+            if (stack.getItem() != ItemRegistry.ITEMS.get("creative_watering_can")) {
+                tag.putInt("StoredFluid", tag.getInt("StoredFluid") - 1);
+            }
 
             if (user instanceof ServerPlayerEntity) {
                 ((ServerPlayerEntity)user).networkHandler.sendPacket(new PlaySoundIdS2CPacket(new Identifier("block.wet_grass.place"), SoundCategory.AMBIENT, user.getPos(), 1f, 1f));

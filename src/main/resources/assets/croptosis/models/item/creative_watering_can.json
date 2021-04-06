@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "croptosis:item/empty_creative_watering_can"
+  },
+  "overrides": [
+	{
+	  "predicate":
+	    {
+		  "croptosis:water_level": 1
+        },
+      "model": "croptosis:item/filled_creative_watering_can"
+    }
+  ]
+}
