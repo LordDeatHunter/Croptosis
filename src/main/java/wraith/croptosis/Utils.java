@@ -15,4 +15,11 @@ public class Utils {
         return new Identifier(Croptosis.MOD_ID, id);
     }
 
+    public static String capitalize(String s) {
+        if (s == null || s.length() < 1) {
+            return s;
+        }
+        return Character.toUpperCase(s.charAt(0)) + s.substring(1);
+    }
+
 }

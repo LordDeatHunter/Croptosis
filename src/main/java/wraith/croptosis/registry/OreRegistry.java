@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class OreRegistry {
 
-    private static final HashMap<String, RegistryKey<ConfiguredFeature<?, ?>>> ORES = new HashMap<String, RegistryKey<ConfiguredFeature<?,?>>>(){{
-        put("potash_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Utils.ID("potash_ore")));
-        put("apatite_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, Utils.ID("apatite_ore")));
+    private static final HashMap<String, RegistryKey<ConfiguredFeature<?, ?>>> ORES = new HashMap<>() {{
+        put("potash_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, Utils.ID("potash_ore")));
+        put("apatite_ore", RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, Utils.ID("apatite_ore")));
     }};
 
 

@@ -14,7 +14,9 @@ import java.util.Map;
 
 public class ItemRegistry {
 
-    public static final HashMap<String, Item> ITEMS = new HashMap<String, Item>(){{
+    private ItemRegistry(){}
+
+    public static final HashMap<String, Item> ITEMS = new HashMap<>() {{
         put("fertilized_sand", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_sand"), new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("fertilized_farmland", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_farmland"), new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("fertilized_dirt", new BlockItem(BlockRegistry.BLOCKS.get("fertilized_dirt"), new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
@@ -33,8 +35,8 @@ public class ItemRegistry {
         put("iron_watering_can", new WateringCanItem(2, 12, 4, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("gold_watering_can", new WateringCanItem(5, 6, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
         put("diamond_watering_can", new WateringCanItem(3, 16, 5, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
-        put("netherite_watering_can", new WateringCanItem(4, 20, 6, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
-        put("creative_watering_can", new WateringCanItem(10, 1, 101, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS)));
+        put("netherite_watering_can", new WateringCanItem(4, 20, 6, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS).fireproof()));
+        put("creative_watering_can", new WateringCanItem(10, 1, 101, new FabricItemSettings().group(CustomItemGroups.CROPTOSIS).fireproof()));
     }};
 
     public static void register() {

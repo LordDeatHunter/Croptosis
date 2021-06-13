@@ -10,12 +10,12 @@ public class CustomModelPredicateProviderRegistry {
     public static void register() {
 
         FabricModelPredicateProviderRegistry.register(Utils.ID("water_level"),
-            (itemStack, clientWorld, livingEntity) -> {
-                if (livingEntity == null || livingEntity.getMainArm() != Arm.RIGHT) {
-                    return 0f;
+                (stack, world, entity, seed) -> {
+                    if (entity == null || entity.getMainArm() != Arm.RIGHT) {
+                        return 0f;
+                    }
+                    return !stack.isEmpty() && stack.getItem() instanceof WateringCanItem && WateringCanItem.isFilled(stack) ? 1F : 0F;
                 }
-                return !itemStack.isEmpty() && itemStack.getItem() instanceof WateringCanItem && WateringCanItem.isFilled(itemStack) ? 1F : 0F;
-            }
         );
 
     }

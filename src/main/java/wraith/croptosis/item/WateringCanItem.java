@@ -6,20 +6,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import wraith.croptosis.Croptosis;
 import wraith.croptosis.Utils;
 import wraith.croptosis.registry.ItemRegistry;
 
@@ -30,18 +29,22 @@ public class WateringCanItem extends Item {
     private final int capacity;
 
     public WateringCanItem(int range, int capacity, int chance, Settings settings) {
-        super(settings);
+        super(settings.maxCount(1));
         this.range = range;
         this.capacity = capacity;
         this.chance = chance;
     }
-
+    
     public static boolean isFilled(ItemStack stack) {
         if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem)) {
             return false;
         }
-        if (stack.getSubTag("Croptosis") != null) {
-            return stack.getSubTag("Croptosis").getInt("StoredFluid") > 0;
+        NbtCompound tag = stack.getSubTag(Utils.capitalize(Croptosis.MOD_ID));
+        if (tag != null) {
+            if (!tag.contains("StoredFluid")) {
+                return false;
+            }
+            return tag.getInt("StoredFluid") > 0;
         }
         return false;
     }
@@ -65,25 +68,23 @@ public class WateringCanItem extends Item {
             BlockPos pos = hitResult.getBlockPos();
 
             if (world.getFluidState(pos).getFluid() instanceof WaterFluid) {
-                CompoundTag tag = stack.getOrCreateSubTag("Croptosis");
+                NbtCompound tag = stack.getOrCreateSubTag(Utils.capitalize(Croptosis.MOD_ID));
                 tag.putInt("StoredFluid", capacity);
             }
         } else {
-            int xpos = (int) Math.floor(user.getBlockPos().getX());
-            int ypos = (int) Math.floor(user.getBlockPos().getY());
-            int zpos = (int) Math.floor(user.getBlockPos().getZ());
-            CompoundTag tag = stack.getSubTag("Croptosis");
+            int xPos = (int) Math.floor(user.getBlockPos().getX());
+            int yPos = (int) Math.floor(user.getBlockPos().getY());
+            int zPos = (int) Math.floor(user.getBlockPos().getZ());
+            NbtCompound tag = stack.getOrCreateSubTag(Utils.capitalize(Croptosis.MOD_ID));
             if (stack.getItem() != ItemRegistry.ITEMS.get("creative_watering_can")) {
                 tag.putInt("StoredFluid", tag.getInt("StoredFluid") - 1);
             }
 
-            if (user instanceof ServerPlayerEntity) {
-                ((ServerPlayerEntity)user).networkHandler.sendPacket(new PlaySoundIdS2CPacket(new Identifier("block.wet_grass.place"), SoundCategory.AMBIENT, user.getPos(), 1f, 1f));
-            }
+            world.playSound(user, user.getBlockPos(), SoundEvents.BLOCK_WET_GRASS_PLACE, SoundCategory.AMBIENT, 1F, 1F);
 
             for (float x = -2f; x <= 2f; x += 2f) {
                 for (float z = -2f; z <= 2f; z += 2f) {
-                    world.addParticle(ParticleTypes.FALLING_WATER, xpos + 0.5f + x * Utils.random.nextDouble(), ypos + 3f - Utils.random.nextDouble(), zpos + 0.5 + z * Utils.random.nextDouble(), x, 1f, z);
+                    world.addParticle(ParticleTypes.FALLING_WATER, xPos + 0.5f + x * Utils.random.nextDouble(), yPos + 3f - Utils.random.nextDouble(), zPos + 0.5 + z * Utils.random.nextDouble(), x, 1f, z);
                 }
             }
 
@@ -96,10 +97,9 @@ public class WateringCanItem extends Item {
                         if (Utils.getRandomIntInRange(1, 100) > chance) {
                             continue;
                         }
-                        BlockPos cropPos = new BlockPos(xpos + x, ypos + y, zpos + z);
+                        BlockPos cropPos = new BlockPos(xPos + x, yPos + y, zPos + z);
                         BlockState state = world.getBlockState(cropPos);
-                        if (state.getBlock() instanceof Fertilizable) {
-                            Fertilizable fertilizable = (Fertilizable)state.getBlock();
+                        if (state.getBlock() instanceof Fertilizable fertilizable) {
                             if (fertilizable.isFertilizable(world, cropPos, state, false) && fertilizable.canGrow(world, Utils.random, cropPos, state)) {
                                 fertilizable.grow((ServerWorld) world, Utils.random, cropPos, state);
                             }
