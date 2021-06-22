@@ -9,7 +9,6 @@
     "CactusBlockMixin",
     "CropBlockMixin",
     "FarmlandBlockMixin",
-    "HoeItemAccessor",
     "HoeItemMixin",
     "SugarCaneBlockMixin"
   ],
