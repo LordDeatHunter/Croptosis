@@ -7,6 +7,6 @@ import wraith.croptosis.registry.ItemRegistry;
 
 public class CustomItemGroups {
 
-    public static final ItemGroup CROPTOSIS = FabricItemGroupBuilder.create(Utils.ID("croptosis")).icon(() -> new ItemStack(ItemRegistry.ITEMS.get("apatite"))).build();
+    public static final ItemGroup CROPTOSIS = FabricItemGroupBuilder.create(Utils.ID("croptosis")).icon(() -> new ItemStack(ItemRegistry.get("apatite"))).build();
 
 }

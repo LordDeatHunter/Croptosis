@@ -1,6 +1,5 @@
 package wraith.croptosis.mixin;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BoneMealItem;
@@ -8,6 +7,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,32 +26,34 @@ public class BoneMealMixin {
         if (world.isClient) {
             return;
         }
-        boolean success = false;
         int decrementAmount = 1;
-        BlockState state = world.getBlockState(pos);
-        if (state.getBlock() == Blocks.SAND && world.getFluidState(pos.up()).getFluid() != Fluids.WATER) {
-            world.setBlockState(pos, BlockRegistry.BLOCKS.get("fertilized_sand").getDefaultState());
-            success = true;
-        } else if (state.getBlock() == Blocks.DIRT && world.getFluidState(pos.up()).getFluid() != Fluids.WATER) {
+        var state = world.getBlockState(pos);
+        var block = state.getBlock();
+        var player = context.getPlayer();
+        var isCreative = player != null && player.isCreative();
+        if (block == Blocks.SAND && world.getFluidState(pos.up()).getFluid() != Fluids.WATER) {
+            world.setBlockState(pos, BlockRegistry.get("fertilized_sand").getDefaultState());
+        } else if (block == Blocks.DIRT && world.getFluidState(pos.up()).getFluid() != Fluids.WATER) {
             world.setBlockState(pos, Blocks.GRASS_BLOCK.getDefaultState());
-            success = true;
-        } else if (state.getBlock() == Blocks.FARMLAND) {
-            world.setBlockState(pos, BlockRegistry.BLOCKS.get("fertilized_farmland").getDefaultState());
-            success = true;
-        } else if ((state.getBlock() instanceof FertilizedSandBlock && state.get(FertilizedSandBlock.MAX_HEIGHT) < FertilizedSandBlock.MAX_TOTAL_HEIGHT && context.getStack().getCount() > state.get(FertilizedSandBlock.MAX_HEIGHT))) {
+        } else if (block == Blocks.FARMLAND) {
+            world.setBlockState(pos, BlockRegistry.get("fertilized_farmland").getDefaultState());
+        } else if (block instanceof FertilizedSandBlock &&
+                state.get(FertilizedSandBlock.MAX_HEIGHT) < FertilizedSandBlock.MAX_TOTAL_HEIGHT &&
+                (context.getStack().getCount() > state.get(FertilizedSandBlock.MAX_HEIGHT) - 2 || isCreative)) {
             decrementAmount += state.get(FertilizedSandBlock.MAX_HEIGHT) - 2;
             world.setBlockState(context.getBlockPos(), state.with(FertilizedSandBlock.MAX_HEIGHT, state.get(FertilizedSandBlock.MAX_HEIGHT) + 1));
-            success = true;
-        } else if ((state.getBlock() instanceof FertilizedDirtBlock && state.get(FertilizedDirtBlock.MAX_HEIGHT) < FertilizedDirtBlock.MAX_TOTAL_HEIGHT && context.getStack().getCount() > state.get(FertilizedDirtBlock.MAX_HEIGHT))) {
+        } else if (block instanceof FertilizedDirtBlock &&
+                state.get(FertilizedDirtBlock.MAX_HEIGHT) < FertilizedDirtBlock.MAX_TOTAL_HEIGHT &&
+                (context.getStack().getCount() > state.get(FertilizedDirtBlock.MAX_HEIGHT) - 2 || isCreative)) {
             decrementAmount += state.get(FertilizedDirtBlock.MAX_HEIGHT) - 2;
             world.setBlockState(context.getBlockPos(), state.with(FertilizedDirtBlock.MAX_HEIGHT, state.get(FertilizedDirtBlock.MAX_HEIGHT) + 1));
-            success = true;
+        } else {
+            return;
         }
-        if (success) {
-            context.getStack().decrement(decrementAmount);
-            world.syncWorldEvent(2005, pos, 0);
-            cir.setReturnValue(ActionResult.SUCCESS);
-            cir.cancel();
-        }
+        context.getStack().decrement(decrementAmount);
+        world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, pos, 0);
+        cir.setReturnValue(ActionResult.SUCCESS);
+        cir.cancel();
     }
+
 }

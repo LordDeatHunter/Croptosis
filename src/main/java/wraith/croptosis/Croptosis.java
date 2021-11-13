@@ -14,9 +14,9 @@ public class Croptosis implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        BlockRegistry.register();
-        ItemRegistry.register();
-        OreRegistry.register();
+        BlockRegistry.init();
+        ItemRegistry.init();
+        OreRegistry.init();
         LOGGER.info("[Croptosis] has been initiated.");
     }
 

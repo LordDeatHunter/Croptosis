@@ -17,20 +17,20 @@ public class CustomConfiguredFeatures {
         put("potash_ore", Feature.ORE
                 .configure(new OreFeatureConfig(
                         OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
-                        BlockRegistry.BLOCKS.get("potash_ore").getDefaultState(),
-                        12))
+                        BlockRegistry.get("potash_ore").getDefaultState(),
+                        8))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(96)))))
                 .spreadHorizontally()
-                .repeat(8));
+                .repeat(6));
 
         put("apatite_ore", Feature.ORE
                 .configure(new OreFeatureConfig(
                         OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
-                        BlockRegistry.BLOCKS.get("apatite_ore").getDefaultState(),
-                        8))
+                        BlockRegistry.get("apatite_ore").getDefaultState(),
+                        6))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.fixed(0), YOffset.fixed(64)))))
                 .spreadHorizontally()
-                .repeat(8));
+                .repeat(6));
     }};
 
 }

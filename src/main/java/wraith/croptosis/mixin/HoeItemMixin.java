@@ -3,7 +3,6 @@ package wraith.croptosis.mixin;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemUsageContext;
 import org.spongepowered.asm.mixin.Final;
@@ -21,16 +20,16 @@ import java.util.function.Predicate;
 @Mixin(HoeItem.class)
 public abstract class HoeItemMixin {
 
+    @Shadow @Final protected static Map<Block, Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>>> TILLING_ACTIONS;
+
     @Shadow
-    public static Consumer<ItemUsageContext> getTillingConsumer(BlockState state) {
+    public static Consumer<ItemUsageContext> createTillAction(BlockState result) {
         return null;
     }
 
-    @Shadow @Final protected static Map<Block, Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>>> TILLED_BLOCKS;
-
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void stat(CallbackInfo ci) {
-        TILLED_BLOCKS.put(BlockRegistry.BLOCKS.get("fertilized_dirt"), Pair.of(HoeItem::usagePredicate, getTillingConsumer(BlockRegistry.BLOCKS.get("fertilized_farmland").getDefaultState())));
+        TILLING_ACTIONS.put(BlockRegistry.get("fertilized_dirt"), Pair.of(HoeItem::canTillFarmland, createTillAction(BlockRegistry.get("fertilized_farmland").getDefaultState())));
     }
 
 }

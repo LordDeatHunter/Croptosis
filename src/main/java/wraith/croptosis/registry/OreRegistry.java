@@ -21,7 +21,7 @@ public class OreRegistry {
     }};
 
 
-    public static void register() {
+    public static void init() {
         for (Map.Entry<String, RegistryKey<ConfiguredFeature<?, ?>>> ore : ORES.entrySet()) {
             Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ore.getValue().getValue(), CustomConfiguredFeatures.ORES.get(ore.getKey()));
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ore.getValue());

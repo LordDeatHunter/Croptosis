@@ -22,7 +22,7 @@ public abstract class CropBlockMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (world.getBlockState(pos.down()).getBlock() == BlockRegistry.BLOCKS.get("fertilized_farmland") && repeat) {
+        if (world.getBlockState(pos.down()).getBlock() == BlockRegistry.get("fertilized_farmland") && repeat) {
             repeat = false;
             randomTick(state, world, pos, random);
         }

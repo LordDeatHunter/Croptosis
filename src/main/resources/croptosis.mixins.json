@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractBlockMixin",
+    "BambooBlockMixin",
     "BoneMealMixin",
     "CactusBlockMixin",
     "CropBlockMixin",

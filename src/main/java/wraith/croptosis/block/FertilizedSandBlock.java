@@ -36,9 +36,9 @@ public class FertilizedSandBlock extends SandBlock {
         for (int height = 1; height <= state.get(FertilizedDirtBlock.MAX_HEIGHT); height++) {
             Block topBlock = world.getBlockState(pos.up(height)).getBlock();
 
-            if (topBlock == BlockRegistry.BLOCKS.get("fertilized_farmland")) continue;
-            if (topBlock == BlockRegistry.BLOCKS.get("fertilized_dirt")) continue;
-            if (topBlock == BlockRegistry.BLOCKS.get("fertilized_sand")) continue;
+            if (topBlock == BlockRegistry.get("fertilized_farmland")) continue;
+            if (topBlock == BlockRegistry.get("fertilized_dirt")) continue;
+            if (topBlock == BlockRegistry.get("fertilized_sand")) continue;
 
             if (topBlock instanceof SugarCaneBlock || topBlock instanceof CactusBlock) {
                 while (true) {

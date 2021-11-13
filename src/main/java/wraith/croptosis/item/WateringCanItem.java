@@ -16,6 +16,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import wraith.croptosis.Croptosis;
@@ -25,28 +26,22 @@ import wraith.croptosis.registry.ItemRegistry;
 public class WateringCanItem extends Item {
 
     private final int range;
-    private final int chance;
+    private final double chance;
     private final int capacity;
 
-    public WateringCanItem(int range, int capacity, int chance, Settings settings) {
+    public WateringCanItem(int range, int capacity, double chance, Settings settings) {
         super(settings.maxCount(1));
-        this.range = range;
+        this.range = Math.min(range, 10);
         this.capacity = capacity;
-        this.chance = chance;
+        this.chance = MathHelper.clamp(chance, 0, 1);
     }
     
     public static boolean isFilled(ItemStack stack) {
         if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem)) {
             return false;
         }
-        NbtCompound tag = stack.getSubTag(Utils.capitalize(Croptosis.MOD_ID));
-        if (tag != null) {
-            if (!tag.contains("StoredFluid")) {
-                return false;
-            }
-            return tag.getInt("StoredFluid") > 0;
-        }
-        return false;
+        NbtCompound tag = stack.getSubNbt(Utils.capitalize(Croptosis.MOD_ID));
+        return tag != null && tag.contains("StoredFluid") && tag.getInt("StoredFluid") > 0;
     }
 
     @Override
@@ -59,24 +54,22 @@ public class WateringCanItem extends Item {
         ItemStack stack = user.getStackInHand(hand);
         if (!isFilled(stack)) {
             BlockHitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.ANY);
-            if (hitResult.getType() == HitResult.Type.MISS) {
-                return TypedActionResult.pass(stack);
-            } else if (hitResult.getType() != HitResult.Type.BLOCK) {
+            if (hitResult.getType() == HitResult.Type.MISS || hitResult.getType() != HitResult.Type.BLOCK) {
                 return TypedActionResult.pass(stack);
             }
 
             BlockPos pos = hitResult.getBlockPos();
 
             if (world.getFluidState(pos).getFluid() instanceof WaterFluid) {
-                NbtCompound tag = stack.getOrCreateSubTag(Utils.capitalize(Croptosis.MOD_ID));
+                NbtCompound tag = stack.getOrCreateSubNbt(Utils.capitalize(Croptosis.MOD_ID));
                 tag.putInt("StoredFluid", capacity);
             }
         } else {
             int xPos = (int) Math.floor(user.getBlockPos().getX());
             int yPos = (int) Math.floor(user.getBlockPos().getY());
             int zPos = (int) Math.floor(user.getBlockPos().getZ());
-            NbtCompound tag = stack.getOrCreateSubTag(Utils.capitalize(Croptosis.MOD_ID));
-            if (stack.getItem() != ItemRegistry.ITEMS.get("creative_watering_can")) {
+            NbtCompound tag = stack.getOrCreateSubNbt(Utils.capitalize(Croptosis.MOD_ID));
+            if (stack.getItem() != ItemRegistry.get("creative_watering_can")) {
                 tag.putInt("StoredFluid", tag.getInt("StoredFluid") - 1);
             }
 
@@ -94,7 +87,7 @@ public class WateringCanItem extends Item {
             for (int x = -range; x <= range; ++x) {
                 for (int y = -3; y <= 3; ++y) {
                     for (int z = -range; z <= range; ++z) {
-                        if (Utils.getRandomIntInRange(1, 100) > chance) {
+                        if (Utils.random.nextDouble() > chance) {
                             continue;
                         }
                         BlockPos cropPos = new BlockPos(xPos + x, yPos + y, zPos + z);

@@ -1,8 +1,8 @@
 package wraith.croptosis.mixin;
 
+import net.minecraft.block.BambooBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CactusBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,8 +12,8 @@ import wraith.croptosis.Utils;
 
 import java.util.Random;
 
-@Mixin(CactusBlock.class)
-public class CactusBlockMixin {
+@Mixin(BambooBlock.class)
+public class BambooBlockMixin {
 
     @ModifyConstant(method = "randomTick", constant = @Constant(intValue = 3))
     public int setMaxHeight(int maxHeight, BlockState state, ServerWorld world, BlockPos pos, Random random) {
@@ -21,7 +21,7 @@ public class CactusBlockMixin {
     }
 
     private Block _this() {
-        return (CactusBlock)(Object)this;
+        return ((BambooBlock)(Object)this);
     }
 
 }

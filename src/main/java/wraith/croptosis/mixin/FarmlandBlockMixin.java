@@ -16,8 +16,8 @@ public class FarmlandBlockMixin {
 
     @Inject(method = "setToDirt", at = @At("HEAD"), cancellable = true)
     private static void setToDirt(BlockState state, World world, BlockPos pos, CallbackInfo ci) {
-        if (state.getBlock() == BlockRegistry.BLOCKS.get("fertilized_farmland")) {
-            world.setBlockState(pos, Block.pushEntitiesUpBeforeBlockChange(state, BlockRegistry.BLOCKS.get("fertilized_dirt").getDefaultState(), world, pos));
+        if (state.getBlock() == BlockRegistry.get("fertilized_farmland")) {
+            world.setBlockState(pos, Block.pushEntitiesUpBeforeBlockChange(state, BlockRegistry.get("fertilized_dirt").getDefaultState(), world, pos));
             ci.cancel();
         }
     }

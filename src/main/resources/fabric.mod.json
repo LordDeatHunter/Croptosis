@@ -14,7 +14,7 @@
   },
 
   "license": "MIT",
-
+  "icon": "assets/CroptosisIcon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
