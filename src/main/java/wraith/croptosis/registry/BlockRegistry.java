@@ -12,6 +12,8 @@ import wraith.croptosis.block.FertilizedSandBlock;
 
 import java.util.HashMap;
 
+// TODO: replace with item tags
+@SuppressWarnings("removal")
 public class BlockRegistry {
 
     private BlockRegistry() {}
@@ -32,6 +34,7 @@ public class BlockRegistry {
 
         registerBlock("potash_ore", new OreBlock(FabricBlockSettings.of(Material.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0F, 3.0F)));
         registerBlock("apatite_ore", new OreBlock(FabricBlockSettings.of(Material.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).strength(3.5F, 3.0F)));
+        registerBlock("deepslate_apatite_ore", new OreBlock(FabricBlockSettings.copy(get("apatite_ore")).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)));
     }
 
     public static Block get(String id) {
