@@ -4,7 +4,7 @@
   "block.croptosis.fertilized_farmland": "Fertilized Farmland",
   "block.croptosis.potash_ore": "Potash Ore",
   "block.croptosis.apatite_ore": "Apatite Ore",
-  "block.croptosis.deepslate_apatite_ore": "Apatite Ore",
+  "block.croptosis.deepslate_apatite_ore": "Deepslate Apatite Ore",
   "block.croptosis.apatite_block": "Apatite Block",
   "block.croptosis.potash_block": "Potash Block",
 
@@ -13,12 +13,13 @@
   "item.croptosis.fertilized_farmland": "Fertilized Farmland",
   "item.croptosis.potash_ore": "Potash Ore",
   "item.croptosis.apatite_ore": "Apatite Ore",
-  "item.croptosis.deepslate_apatite_ore": "Apatite Ore",
+  "item.croptosis.deepslate_apatite_ore": "Deepslate Apatite Ore",
   "item.croptosis.apatite_block": "Apatite Block",
   "item.croptosis.potash_block": "Potash Block",
 
   "item.croptosis.apatite": "Apatite",
   "item.croptosis.potash": "Potash",
+  "item.croptosis.potash_pieces": "Potash Pieces",
   "item.croptosis.feather_meal": "Feather Meal",
   "item.croptosis.rotten_pile": "Rotten Pile",
 

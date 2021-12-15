@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
-import wraith.croptosis.Utils;
+import wraith.croptosis.util.CUtils;
 import wraith.croptosis.block.CroptosisFarmlandBlock;
 import wraith.croptosis.block.FertilizedDirtBlock;
 import wraith.croptosis.block.FertilizedSandBlock;
@@ -21,7 +21,7 @@ public class BlockRegistry {
     private static final HashMap<String, Block> BLOCKS = new HashMap<>();
 
     private static void registerBlock(String id, Block block){
-        BLOCKS.put(id, Registry.register(Registry.BLOCK, Utils.ID(id), block));
+        BLOCKS.put(id, Registry.register(Registry.BLOCK, CUtils.ID(id), block));
     }
 
     public static void init() {
@@ -34,7 +34,7 @@ public class BlockRegistry {
 
         registerBlock("potash_ore", new OreBlock(FabricBlockSettings.of(Material.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0F, 3.0F)));
         registerBlock("apatite_ore", new OreBlock(FabricBlockSettings.of(Material.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).strength(3.5F, 3.0F)));
-        registerBlock("deepslate_apatite_ore", new OreBlock(FabricBlockSettings.copy(get("apatite_ore")).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)));
+        registerBlock("deepslate_apatite_ore", new OreBlock(FabricBlockSettings.of(Material.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE)));
     }
 
     public static Block get(String id) {

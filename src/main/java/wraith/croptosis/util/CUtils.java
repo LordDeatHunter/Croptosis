@@ -1,17 +1,18 @@
-package wraith.croptosis;
+package wraith.croptosis.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import wraith.croptosis.Croptosis;
 import wraith.croptosis.block.FertilizedSandBlock;
 
 import java.util.Random;
 
-public final class Utils {
+public final class CUtils {
 
-    private Utils() {}
+    private CUtils() {}
 
     public static final Random random = new Random();
     public static int getRandomIntInRange(int min, int max) {

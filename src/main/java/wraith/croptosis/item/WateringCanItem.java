@@ -20,8 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import wraith.croptosis.Croptosis;
-import wraith.croptosis.Utils;
-import wraith.croptosis.registry.ItemRegistry;
+import wraith.croptosis.util.CUtils;
 
 public class WateringCanItem extends Item {
 
@@ -37,11 +36,11 @@ public class WateringCanItem extends Item {
     }
     
     public static boolean isFilled(ItemStack stack) {
-        if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem)) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem wateringCan)) {
             return false;
         }
-        NbtCompound tag = stack.getSubNbt(Utils.capitalize(Croptosis.MOD_ID));
-        return tag != null && tag.contains("StoredFluid") && tag.getInt("StoredFluid") > 0;
+        NbtCompound tag = stack.getSubNbt(CUtils.capitalize(Croptosis.MOD_ID));
+        return tag != null && ((tag.contains("StoredFluid") && tag.getInt("StoredFluid") > 0) || wateringCan.capacity == -1);
     }
 
     @Override
@@ -52,6 +51,7 @@ public class WateringCanItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
+        var wateringCan = (WateringCanItem) stack.getItem();
         if (!isFilled(stack)) {
             BlockHitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.ANY);
             if (hitResult.getType() == HitResult.Type.MISS || hitResult.getType() != HitResult.Type.BLOCK) {
@@ -61,23 +61,22 @@ public class WateringCanItem extends Item {
             BlockPos pos = hitResult.getBlockPos();
 
             if (world.getFluidState(pos).getFluid() instanceof WaterFluid) {
-                NbtCompound tag = stack.getOrCreateSubNbt(Utils.capitalize(Croptosis.MOD_ID));
+                NbtCompound tag = stack.getOrCreateSubNbt(CUtils.capitalize(Croptosis.MOD_ID));
                 tag.putInt("StoredFluid", capacity);
             }
         } else {
             int xPos = (int) Math.floor(user.getBlockPos().getX());
             int yPos = (int) Math.floor(user.getBlockPos().getY());
             int zPos = (int) Math.floor(user.getBlockPos().getZ());
-            NbtCompound tag = stack.getOrCreateSubNbt(Utils.capitalize(Croptosis.MOD_ID));
-            if (stack.getItem() != ItemRegistry.get("creative_watering_can")) {
+            NbtCompound tag = stack.getOrCreateSubNbt(CUtils.capitalize(Croptosis.MOD_ID));
+            if (wateringCan.capacity > 0) {
                 tag.putInt("StoredFluid", tag.getInt("StoredFluid") - 1);
             }
-
             world.playSound(user, user.getBlockPos(), SoundEvents.BLOCK_WET_GRASS_PLACE, SoundCategory.AMBIENT, 1F, 1F);
 
             for (float x = -2f; x <= 2f; x += 2f) {
                 for (float z = -2f; z <= 2f; z += 2f) {
-                    world.addParticle(ParticleTypes.FALLING_WATER, xPos + 0.5f + x * Utils.random.nextDouble(), yPos + 3f - Utils.random.nextDouble(), zPos + 0.5 + z * Utils.random.nextDouble(), x, 1f, z);
+                    world.addParticle(ParticleTypes.FALLING_WATER, xPos + 0.5f + x * CUtils.random.nextDouble(), yPos + 3f - CUtils.random.nextDouble(), zPos + 0.5 + z * CUtils.random.nextDouble(), x, 1f, z);
                 }
             }
 
@@ -87,14 +86,14 @@ public class WateringCanItem extends Item {
             for (int x = -range; x <= range; ++x) {
                 for (int y = -3; y <= 3; ++y) {
                     for (int z = -range; z <= range; ++z) {
-                        if (Utils.random.nextDouble() > chance) {
+                        if (CUtils.random.nextDouble() > chance) {
                             continue;
                         }
                         BlockPos cropPos = new BlockPos(xPos + x, yPos + y, zPos + z);
                         BlockState state = world.getBlockState(cropPos);
                         if (state.getBlock() instanceof Fertilizable fertilizable) {
-                            if (fertilizable.isFertilizable(world, cropPos, state, false) && fertilizable.canGrow(world, Utils.random, cropPos, state)) {
-                                fertilizable.grow((ServerWorld) world, Utils.random, cropPos, state);
+                            if (fertilizable.isFertilizable(world, cropPos, state, false) && fertilizable.canGrow(world, CUtils.random, cropPos, state)) {
+                                fertilizable.grow((ServerWorld) world, CUtils.random, cropPos, state);
                             }
                         }
                     }
