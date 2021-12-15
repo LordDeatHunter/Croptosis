@@ -44,8 +44,8 @@ public class OreRegistry {
     private static final RegistryKey<PlacedFeature> POTASH_PLACEMENT_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, Utils.ID("potash_ore"));
     private static final RegistryKey<PlacedFeature> APATITE_PLACEMENT_KEY = RegistryKey.of(Registry.PLACED_FEATURE_KEY, Utils.ID("apatite_ore"));
 
-    private static final PlacedFeature POTASH_PLACEMENT_FEATURE = POTASH_ORE.withPlacement(modifiersWithCount(18, HeightRangePlacementModifier.trapezoid(YOffset.fixed(46), YOffset.fixed(104))));
-    private static final PlacedFeature APATITE_PLACEMENT_FEATURE = APATITE_ORE.withPlacement(modifiersWithCount(20, HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(34))));
+    private static final PlacedFeature POTASH_PLACEMENT_FEATURE = POTASH_ORE.withPlacement(modifiersWithCount(8, HeightRangePlacementModifier.trapezoid(YOffset.fixed(46), YOffset.fixed(204))));
+    private static final PlacedFeature APATITE_PLACEMENT_FEATURE = APATITE_ORE.withPlacement(modifiersWithCount(4, HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(34))));
 
     public static void init() {
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, POTASH_CONFIGURED_KEY, POTASH_ORE);

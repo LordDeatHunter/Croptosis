@@ -30,6 +30,7 @@ public final class ItemRegistry {
 
         registerItem("potash_ore", new BlockItem(BlockRegistry.get("potash_ore"), new FabricItemSettings().group(CROPTOSIS)));
         registerItem("apatite_ore", new BlockItem(BlockRegistry.get("apatite_ore"), new FabricItemSettings().group(CROPTOSIS)));
+        registerItem("deepslate_apatite_ore", new BlockItem(BlockRegistry.get("deepslate_apatite_ore"), new FabricItemSettings().group(CROPTOSIS)));
 
         registerItem("potash_block", new BlockItem(BlockRegistry.get("potash_block"), new FabricItemSettings().group(CROPTOSIS)));
         registerItem("apatite_block", new BlockItem(BlockRegistry.get("apatite_block"), new FabricItemSettings().group(CROPTOSIS)));
