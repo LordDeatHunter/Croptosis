@@ -43,10 +43,12 @@ public final class ItemRegistry {
         registerItem("potash_pieces", new Item(new FabricItemSettings().group(CROPTOSIS)));
 
         var config = Config.getInstance();
-        registerItem("iron_watering_can", new WateringCanItem(config.getWateringCanRange("iron"), config.getWateringCanCapacity("iron"), config.getWateringCanChance("iron"), new FabricItemSettings().group(CROPTOSIS)));
-        registerItem("gold_watering_can", new WateringCanItem(config.getWateringCanRange("gold"), config.getWateringCanCapacity("gold"), config.getWateringCanChance("gold"), new FabricItemSettings().group(CROPTOSIS)));
-        registerItem("diamond_watering_can", new WateringCanItem(config.getWateringCanRange("diamond"), config.getWateringCanCapacity("diamond"), config.getWateringCanChance("diamond"), new FabricItemSettings().group(CROPTOSIS)));
-        registerItem("netherite_watering_can", new WateringCanItem(config.getWateringCanRange("netherite"), config.getWateringCanCapacity("netherite"), config.getWateringCanChance("netherite"), new FabricItemSettings().group(CROPTOSIS).fireproof()));
+        if (config.createWateringCans()) {
+            registerItem("iron_watering_can", new WateringCanItem(config.getWateringCanRange("iron"), config.getWateringCanCapacity("iron"), config.getWateringCanChance("iron"), new FabricItemSettings().group(CROPTOSIS)));
+            registerItem("gold_watering_can", new WateringCanItem(config.getWateringCanRange("gold"), config.getWateringCanCapacity("gold"), config.getWateringCanChance("gold"), new FabricItemSettings().group(CROPTOSIS)));
+            registerItem("diamond_watering_can", new WateringCanItem(config.getWateringCanRange("diamond"), config.getWateringCanCapacity("diamond"), config.getWateringCanChance("diamond"), new FabricItemSettings().group(CROPTOSIS)));
+            registerItem("netherite_watering_can", new WateringCanItem(config.getWateringCanRange("netherite"), config.getWateringCanCapacity("netherite"), config.getWateringCanChance("netherite"), new FabricItemSettings().group(CROPTOSIS).fireproof()));
+        }
         registerItem("creative_watering_can", new WateringCanItem(10, -1, 1.0D, new FabricItemSettings().group(CROPTOSIS).fireproof()));
     }
     

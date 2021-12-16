@@ -107,6 +107,14 @@ public final class Config {
         return 0;
     }
 
+    public boolean createWateringCans() {
+        return configData.getCompound("watering_cans").getBoolean("enabled");
+    }
+
+    public boolean createFertilizedBlocks() {
+        return configData.getCompound("fertilized_blocks").getBoolean("enabled");
+    }
+
     private NbtCompound getDefaults() {
         NbtCompound defaultConfig = new NbtCompound();
 
@@ -156,6 +164,10 @@ public final class Config {
         wateringCans.put("diamond", diamondWateringCan);
         wateringCans.put("netherite", netheriteWateringCan);
         defaultConfig.put("watering_cans", wateringCans);
+
+        NbtCompound fertilizedBlocks = new NbtCompound();
+        fertilizedBlocks.putBoolean("enabled", true);
+        defaultConfig.put("fertilized_blocks", fertilizedBlocks);
 
         return defaultConfig;
     }
@@ -301,6 +313,11 @@ public final class Config {
         wateringCan.add("netherite", netheriteWateringCan);
         json.add("watering_cans", wateringCan);
 
+        JsonObject fertilizedBlocks = new JsonObject();
+        NbtCompound fertilizedBlocksNbt = getCompoundOrDefault(tag, "fertilized_blocks", defaults);
+        fertilizedBlocks.addProperty("enabled", getBooleanOrDefault(fertilizedBlocksNbt, "enabled", defaults));
+        json.add("fertilized_blocks", fertilizedBlocks);
+
         createFile(json, this.difference > 0);
         difference = 0;
         return json;
@@ -381,6 +398,16 @@ public final class Config {
             wateringCans = defaults.getCompound("watering_cans");
         }
         tag.put("watering_cans", wateringCans);
+
+        NbtCompound fertilizedBlocks = new NbtCompound();
+        if (json.has("fertilized_blocks")) {
+            var fertilizedBlocksJson = json.get("fertilized_blocks").getAsJsonObject();
+            var defaultFertilizedBlocks = defaults.getCompound("fertilized_blocks");
+            fertilizedBlocks.putBoolean("enabled", getBooleanOrDefault(fertilizedBlocksJson, "enabled", defaultFertilizedBlocks));
+        } else {
+            fertilizedBlocks = defaults.getCompound("fertilized_blocks");
+        }
+        tag.put("fertilized_blocks", fertilizedBlocks);
 
         createFile(toJson(tag), this.difference > 0);
         difference = 0;

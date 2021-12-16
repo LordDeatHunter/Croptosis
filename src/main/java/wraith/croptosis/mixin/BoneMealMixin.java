@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import wraith.croptosis.block.FertilizedDirtBlock;
 import wraith.croptosis.block.FertilizedSandBlock;
 import wraith.croptosis.registry.BlockRegistry;
+import wraith.croptosis.util.Config;
 
 @Mixin(BoneMealItem.class)
 public class BoneMealMixin {
@@ -23,7 +24,7 @@ public class BoneMealMixin {
     public void useOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
-        if (world.isClient) {
+        if (world.isClient || !Config.getInstance().createFertilizedBlocks()) {
             return;
         }
         int decrementAmount = 1;
