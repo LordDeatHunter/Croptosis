@@ -10,7 +10,7 @@
     "CactusBlockMixin",
     "CropBlockMixin",
     "FarmlandBlockMixin",
-    "HoeItemMixin",
+    "RecipeManagerMixin",
     "SugarCaneBlockMixin"
   ],
   "client": [

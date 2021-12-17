@@ -2,6 +2,7 @@ package wraith.croptosis.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.item.Item;
@@ -11,6 +12,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -19,8 +22,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import wraith.croptosis.Croptosis;
 import wraith.croptosis.util.CUtils;
+import wraith.croptosis.util.Config;
+
+import java.util.List;
 
 public class WateringCanItem extends Item {
 
@@ -34,9 +41,9 @@ public class WateringCanItem extends Item {
         this.capacity = capacity;
         this.chance = MathHelper.clamp(chance, 0, 1);
     }
-    
+
     public static boolean isFilled(ItemStack stack) {
-        if (stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem wateringCan)) {
+        if (!Config.getInstance().allowWateringCans() || stack.isEmpty() || !(stack.getItem() instanceof WateringCanItem wateringCan)) {
             return false;
         }
         NbtCompound tag = stack.getSubNbt(CUtils.capitalize(Croptosis.MOD_ID));
@@ -50,6 +57,9 @@ public class WateringCanItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        if (!Config.getInstance().allowWateringCans()) {
+            return TypedActionResult.fail(user.getStackInHand(hand));
+        }
         ItemStack stack = user.getStackInHand(hand);
         var wateringCan = (WateringCanItem) stack.getItem();
         if (!isFilled(stack)) {
@@ -103,5 +113,34 @@ public class WateringCanItem extends Item {
         return TypedActionResult.success(stack);
     }
 
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        if (!Config.getInstance().allowWateringCans()) {
+            tooltip.add(new TranslatableText("tooltip.croptosis.watering_can.disabled"));
+            return;
+        }
+        if (!(stack.getItem() instanceof WateringCanItem wateringCan)) {
+            return;
+        }
+        NbtCompound tag = stack.getSubNbt(CUtils.capitalize(Croptosis.MOD_ID));
+        var fluidAmount = tag != null && tag.contains("StoredFluid") ? tag.getInt("StoredFluid") : 0;
+        var fluidAmountStr = fluidAmount == -1 ? "∞" : String.valueOf(fluidAmount);
+        var capacityStr = wateringCan.capacity == -1 ? "∞" : String.valueOf(wateringCan.capacity);
+        // TODO: Make colored args work
+        tooltip.add(new TranslatableText(
+                "tooltip.croptosis.watering_can.range",
+                new TranslatableText("tooltip.croptosis.watering_can.range.arg_color").append(String.valueOf(wateringCan.range))
+        ));
+        tooltip.add(new TranslatableText(
+                "tooltip.croptosis.watering_can.fluid",
+                new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color1").append(fluidAmountStr),
+                new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color2").append(capacityStr)
+        ));
+        tooltip.add(new TranslatableText(
+                "tooltip.croptosis.watering_can.chance",
+                new TranslatableText("tooltip.croptosis.watering_can.chance.arg_color").append(CUtils.formatDouble(wateringCan.chance * 100))
+        ));
+    }
 
 }

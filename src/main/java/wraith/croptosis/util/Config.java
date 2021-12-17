@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.nbt.NbtCompound;
+import wraith.croptosis.registry.ItemRegistry;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +26,7 @@ public final class Config {
     public static Config getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Config();
+            INSTANCE.loadConfig();
         }
         return INSTANCE;
     }
@@ -79,40 +81,46 @@ public final class Config {
 
     public int getWateringCanRange(String wateringCan) {
         var wateringCans = configData.getCompound("watering_cans");
-        if (wateringCans.contains(wateringCan)) {
-            return wateringCans.getCompound(wateringCan).getInt("range");
-        } else {
+        if (!wateringCans.contains(wateringCan)) {
             LOGGER.error("Watering can " + wateringCan + " not found in config file!");
+            return 0;
         }
-        return 0;
+        return !allowWateringCans() ? 0 : wateringCans.getCompound(wateringCan).getInt("range");
     }
 
     public int getWateringCanCapacity(String wateringCan) {
         var wateringCans = configData.getCompound("watering_cans");
-        if (wateringCans.contains(wateringCan)) {
-            return wateringCans.getCompound(wateringCan).getInt("capacity");
-        } else {
+        if (!wateringCans.contains(wateringCan)) {
             LOGGER.error("Watering can " + wateringCan + " not found in config file!");
+            return 0;
         }
-        return 0;
+        return !allowWateringCans() ? 0 : wateringCans.getCompound(wateringCan).getInt("capacity");
     }
 
     public double getWateringCanChance(String wateringCan) {
         var wateringCans = configData.getCompound("watering_cans");
-        if (wateringCans.contains(wateringCan)) {
-            return wateringCans.getCompound(wateringCan).getDouble("chance");
-        } else {
+        if (!wateringCans.contains(wateringCan)) {
             LOGGER.error("Watering can " + wateringCan + " not found in config file!");
+            return 0;
         }
-        return 0;
+        return !allowWateringCans() ? 0 : wateringCans.getCompound(wateringCan).getDouble("chance");
     }
 
-    public boolean createWateringCans() {
+    public boolean allowWateringCans() {
         return configData.getCompound("watering_cans").getBoolean("enabled");
     }
 
-    public boolean createFertilizedBlocks() {
-        return configData.getCompound("fertilized_blocks").getBoolean("enabled");
+    public boolean canConvertToFertilizedBlocks() {
+        return configData.getCompound("fertilized_blocks").getBoolean("enable_bone_meal_conversion");
+    }
+
+    public boolean isFertilizerItemEnabled(String item) {
+        var fertilizers = configData.getCompound("fertilizer_items");
+        if (!fertilizers.contains("enable_" + item)) {
+            LOGGER.error("Fertilizer item " + item + " not found in config file!");
+            return false;
+        }
+        return fertilizers.getBoolean("enable_" + item);
     }
 
     private NbtCompound getDefaults() {
@@ -165,8 +173,14 @@ public final class Config {
         wateringCans.put("netherite", netheriteWateringCan);
         defaultConfig.put("watering_cans", wateringCans);
 
+        NbtCompound fertilizers = new NbtCompound();
+        for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+            fertilizers.putBoolean("enable_" + fertilizer, true);
+        }
+        defaultConfig.put("fertilizer_items", fertilizers);
+
         NbtCompound fertilizedBlocks = new NbtCompound();
-        fertilizedBlocks.putBoolean("enabled", true);
+        fertilizedBlocks.putBoolean("enable_bone_meal_conversion", true);
         defaultConfig.put("fertilized_blocks", fertilizedBlocks);
 
         return defaultConfig;
@@ -313,9 +327,17 @@ public final class Config {
         wateringCan.add("netherite", netheriteWateringCan);
         json.add("watering_cans", wateringCan);
 
+        JsonObject fertilizerItems = new JsonObject();
+        NbtCompound fertilizerItemsNbt = getCompoundOrDefault(tag, "fertilizer_items", defaults);
+        for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+            var fertilizerKey = "enable_" + fertilizer;
+            fertilizerItems.addProperty(fertilizerKey, getBooleanOrDefault(fertilizerItemsNbt, fertilizerKey, defaults));
+        }
+        json.add("fertilizer_items", fertilizerItems);
+
         JsonObject fertilizedBlocks = new JsonObject();
         NbtCompound fertilizedBlocksNbt = getCompoundOrDefault(tag, "fertilized_blocks", defaults);
-        fertilizedBlocks.addProperty("enabled", getBooleanOrDefault(fertilizedBlocksNbt, "enabled", defaults));
+        fertilizedBlocks.addProperty("enable_bone_meal_conversion", getBooleanOrDefault(fertilizedBlocksNbt, "enable_bone_meal_conversion", defaults));
         json.add("fertilized_blocks", fertilizedBlocks);
 
         createFile(json, this.difference > 0);
@@ -338,6 +360,7 @@ public final class Config {
             potashOregen.putInt("per_chunk", getIntOrDefault(potashJson, "per_chunk", defaultPotash));
             potashOregen.putInt("vein_size", getIntOrDefault(potashJson, "vein_size", defaultPotash));
         } else {
+            ++difference;
             potashOregen = defaults.getCompound("potash_oregen");
         }
         tag.put("potash_oregen", potashOregen);
@@ -353,6 +376,7 @@ public final class Config {
             apatiteOregen.putInt("per_chunk", getIntOrDefault(apatiteJson, "per_chunk", defaultApatite));
             apatiteOregen.putInt("vein_size", getIntOrDefault(apatiteJson, "vein_size", defaultApatite));
         } else {
+            ++difference;
             apatiteOregen = defaults.getCompound("apatite_oregen");
         }
         tag.put("apatite_oregen", apatiteOregen);
@@ -395,16 +419,32 @@ public final class Config {
             wateringCans.put("diamond", diamondWateringCan);
             wateringCans.put("netherite", netheriteWateringCan);
         } else {
+            ++difference;
             wateringCans = defaults.getCompound("watering_cans");
         }
         tag.put("watering_cans", wateringCans);
+
+        NbtCompound fertilizerItems = new NbtCompound();
+        if (json.has("fertilizer_items")) {
+            var fertilizerItemsJson = json.get("fertilizer_items").getAsJsonObject();
+            var defaultFertilizerItems = defaults.getCompound("fertilizer_items");
+            for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+                var fertilizerKey = "enable_" + fertilizer;
+                fertilizerItems.putBoolean(fertilizerKey, getBooleanOrDefault(fertilizerItemsJson, fertilizerKey, defaultFertilizerItems));
+            }
+        } else {
+            ++difference;
+            fertilizerItems = defaults.getCompound("fertilizer_items");
+        }
+        tag.put("fertilizer_items", fertilizerItems);
 
         NbtCompound fertilizedBlocks = new NbtCompound();
         if (json.has("fertilized_blocks")) {
             var fertilizedBlocksJson = json.get("fertilized_blocks").getAsJsonObject();
             var defaultFertilizedBlocks = defaults.getCompound("fertilized_blocks");
-            fertilizedBlocks.putBoolean("enabled", getBooleanOrDefault(fertilizedBlocksJson, "enabled", defaultFertilizedBlocks));
+            fertilizedBlocks.putBoolean("enable_bone_meal_conversion", getBooleanOrDefault(fertilizedBlocksJson, "enable_bone_meal_conversion", defaultFertilizedBlocks));
         } else {
+            ++difference;
             fertilizedBlocks = defaults.getCompound("fertilized_blocks");
         }
         tag.put("fertilized_blocks", fertilizedBlocks);

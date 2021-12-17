@@ -1,20 +1,26 @@
 package wraith.croptosis.util;
 
+import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.mixin.content.registry.HoeItemAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.HoeItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import wraith.croptosis.Croptosis;
 import wraith.croptosis.block.FertilizedSandBlock;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public final class CUtils {
 
-    private CUtils() {}
+    private CUtils() {
+    }
 
     public static final Random random = new Random();
+
     public static int getRandomIntInRange(int min, int max) {
         return random.nextInt(max - min + 1) + min;
     }
@@ -33,11 +39,21 @@ public final class CUtils {
             return maxHeight;
         }
         int height = 1;
-        while(world.getBlockState(pos.down(height)).isOf(block)) {
+        while (world.getBlockState(pos.down(height)).isOf(block)) {
             ++height;
         }
         BlockState plantedOn = world.getBlockState(pos.down(height));
         return !(plantedOn.getBlock() instanceof FertilizedSandBlock) ? maxHeight : plantedOn.get(FertilizedSandBlock.MAX_HEIGHT);
+    }
+
+    public static void addTillable(Block original, Block result) {
+        HoeItemAccessor.getTillingActions().put(original, Pair.of(HoeItem::canTillFarmland, HoeItem.createTillAction(result.getDefaultState())));
+    }
+
+    private static final DecimalFormat DF = new DecimalFormat("#.##");
+
+    public static String formatDouble(double val) {
+        return DF.format(val);
     }
 
 }

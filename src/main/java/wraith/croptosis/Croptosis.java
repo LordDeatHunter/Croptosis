@@ -15,7 +15,7 @@ public class Croptosis implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Config.getInstance().loadConfig();
+        Config.getInstance();
         BlockRegistry.init();
         ItemRegistry.init();
         OreRegistry.init();
