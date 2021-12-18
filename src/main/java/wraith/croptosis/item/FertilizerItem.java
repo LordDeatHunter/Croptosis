@@ -24,10 +24,10 @@ public class FertilizerItem extends BoneMealItem {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         var fertilizer = Registry.ITEM.getId(stack.getItem()).getPath();
-        if (ItemRegistry.FERTILIEZR_ITEMS.contains(fertilizer) && Config.getInstance().isFertilizerItemEnabled(fertilizer)) {
-            tooltip.add(new TranslatableText("tooltip.croptosis.fertilizer_item"));
-        } else {
+        if (ItemRegistry.FERTILIEZR_ITEMS.contains(fertilizer) && !Config.getInstance().isFertilizerItemEnabled(fertilizer)) {
             tooltip.add(new TranslatableText("tooltip.croptosis.fertilizer_item.disabled"));
+        } else {
+            tooltip.add(new TranslatableText("tooltip.croptosis.fertilizer_item"));
         }
     }
 

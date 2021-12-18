@@ -12,7 +12,9 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -130,16 +132,17 @@ public class WateringCanItem extends Item {
         // TODO: Make colored args work
         tooltip.add(new TranslatableText(
                 "tooltip.croptosis.watering_can.range",
-                new TranslatableText("tooltip.croptosis.watering_can.range.arg_color").append(String.valueOf(wateringCan.range))
+                new LiteralText(String.valueOf(wateringCan.range)).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.range.arg_color").getString())))
         ));
         tooltip.add(new TranslatableText(
                 "tooltip.croptosis.watering_can.fluid",
-                new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color1").append(fluidAmountStr),
-                new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color2").append(capacityStr)
+                new LiteralText(fluidAmountStr).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color1").getString()))),
+                new LiteralText(capacityStr).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color2").getString())))
         ));
         tooltip.add(new TranslatableText(
                 "tooltip.croptosis.watering_can.chance",
-                new TranslatableText("tooltip.croptosis.watering_can.chance.arg_color").append(CUtils.formatDouble(wateringCan.chance * 100))
+                new LiteralText(CUtils.formatDouble(wateringCan.chance * 100)).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.chance.arg_color").getString()))),
+                new LiteralText("%").styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.chance.percent_color").getString())))
         ));
     }
 

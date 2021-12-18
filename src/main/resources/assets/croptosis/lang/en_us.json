@@ -32,7 +32,7 @@
   "tooltip.croptosis.watering_can.disabled": "§8It seems to be broken...",
   "tooltip.croptosis.watering_can.range": "§6Range: %s",
   "tooltip.croptosis.watering_can.fluid": "§6Fluid: %s§6/%s",
-  "tooltip.croptosis.watering_can.chance": "§6Chance: %s§6%%",
+  "tooltip.croptosis.watering_can.chance": "§6Chance: %s%s",
   "tooltip.croptosis.fertilizer_item": "§3It might be useful for farming...",
   "tooltip.croptosis.fertilizer_item.disabled": "§8It might not be useful for farming...",
 
@@ -40,6 +40,7 @@
   "tooltip.croptosis.watering_can.fluid.arg_color1": "#FFFF55",
   "tooltip.croptosis.watering_can.fluid.arg_color2": "#FFFF55",
   "tooltip.croptosis.watering_can.chance.arg_color": "#FFFF55",
+  "tooltip.croptosis.watering_can.chance.percent_color": "#FFAA00",
 
   "itemGroup.croptosis.croptosis": "Croptosis"
 }
