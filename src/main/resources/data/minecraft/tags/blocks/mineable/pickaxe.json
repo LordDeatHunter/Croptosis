@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "croptosis:potash_block",
+    "croptosis:apatite_block",
+    "croptosis:potash_ore",
+    "croptosis:apatite_ore",
+    "croptosis:deepslate_apatite_ore"
+  ]
+}
