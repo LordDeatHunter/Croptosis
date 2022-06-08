@@ -19,7 +19,7 @@ public class Croptosis implements ModInitializer {
         BlockRegistry.init();
         ItemRegistry.init();
         OreRegistry.init();
-        LOGGER.info("[Croptosis] has been initiated.");
+        LOGGER.info("has been initiated.");
     }
 
 }

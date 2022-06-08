@@ -13,16 +13,17 @@ import wraith.croptosis.registry.BlockRegistry;
 @Mixin(AbstractBlock.AbstractBlockState.class)
 public abstract class AbstractBlockMixin {
 
-    @Shadow public abstract Block getBlock();
+    @Shadow
+    public abstract Block getBlock();
 
     @Inject(method = "isOf", at = @At("HEAD"), cancellable = true)
     public void isOf(Block block, CallbackInfoReturnable<Boolean> cir) {
         boolean isSand = (block instanceof SandBlock && getBlock() instanceof FertilizedSandBlock) ||
-                         (block instanceof FertilizedSandBlock && getBlock() instanceof SandBlock);
+            (block instanceof FertilizedSandBlock && getBlock() instanceof SandBlock);
         boolean isFarmland = (block instanceof FarmlandBlock && getBlock() == BlockRegistry.get("fertilized_farmland")) ||
-                             (block == BlockRegistry.get("fertilized_farmland") && getBlock() instanceof FarmlandBlock);
+            (block == BlockRegistry.get("fertilized_farmland") && getBlock() instanceof FarmlandBlock);
         boolean isDirt = (block == Blocks.DIRT && getBlock() instanceof FertilizedDirtBlock) ||
-                         (getBlock() == Blocks.DIRT && block instanceof FertilizedDirtBlock);
+            (getBlock() == Blocks.DIRT && block instanceof FertilizedDirtBlock);
 
         if (isSand || isFarmland || isDirt) {
             cir.setReturnValue(true);

@@ -26,7 +26,7 @@ public class BoneMealMixin {
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     public void useOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         var fertilizer = Registry.ITEM.getId(_this()).getPath();
-        if (ItemRegistry.FERTILIEZR_ITEMS.contains(fertilizer) && !Config.getInstance().isFertilizerItemEnabled(fertilizer)) {
+        if (ItemRegistry.FERTILIZER_ITEMS.contains(fertilizer) && !Config.getInstance().isFertilizerItemEnabled(fertilizer)) {
             return;
         }
         World world = context.getWorld();
@@ -46,13 +46,13 @@ public class BoneMealMixin {
         } else if (block == Blocks.FARMLAND) {
             world.setBlockState(pos, BlockRegistry.get("fertilized_farmland").getDefaultState());
         } else if (block instanceof FertilizedSandBlock &&
-                state.get(FertilizedSandBlock.MAX_HEIGHT) < FertilizedSandBlock.MAX_TOTAL_HEIGHT &&
-                (context.getStack().getCount() > state.get(FertilizedSandBlock.MAX_HEIGHT) - 2 || isCreative)) {
+            state.get(FertilizedSandBlock.MAX_HEIGHT) < FertilizedSandBlock.MAX_TOTAL_HEIGHT &&
+            (context.getStack().getCount() > state.get(FertilizedSandBlock.MAX_HEIGHT) - 2 || isCreative)) {
             decrementAmount += state.get(FertilizedSandBlock.MAX_HEIGHT) - 2;
             world.setBlockState(context.getBlockPos(), state.with(FertilizedSandBlock.MAX_HEIGHT, state.get(FertilizedSandBlock.MAX_HEIGHT) + 1));
         } else if (block instanceof FertilizedDirtBlock &&
-                state.get(FertilizedDirtBlock.MAX_HEIGHT) < FertilizedDirtBlock.MAX_TOTAL_HEIGHT &&
-                (context.getStack().getCount() > state.get(FertilizedDirtBlock.MAX_HEIGHT) - 2 || isCreative)) {
+            state.get(FertilizedDirtBlock.MAX_HEIGHT) < FertilizedDirtBlock.MAX_TOTAL_HEIGHT &&
+            (context.getStack().getCount() > state.get(FertilizedDirtBlock.MAX_HEIGHT) - 2 || isCreative)) {
             decrementAmount += state.get(FertilizedDirtBlock.MAX_HEIGHT) - 2;
             world.setBlockState(context.getBlockPos(), state.with(FertilizedDirtBlock.MAX_HEIGHT, state.get(FertilizedDirtBlock.MAX_HEIGHT) + 1));
         } else {

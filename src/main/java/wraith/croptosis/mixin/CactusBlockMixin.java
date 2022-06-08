@@ -5,12 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CactusBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import wraith.croptosis.util.CUtils;
-
-import java.util.Random;
 
 @Mixin(CactusBlock.class)
 public class CactusBlockMixin {
@@ -21,7 +20,7 @@ public class CactusBlockMixin {
     }
 
     private Block _this() {
-        return (CactusBlock)(Object)this;
+        return (CactusBlock) (Object) this;
     }
 
 }

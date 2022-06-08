@@ -20,8 +20,7 @@ public final class Config {
     private NbtCompound configData;
     private static Config INSTANCE = null;
 
-    private Config() {
-    }
+    private Config() {}
 
     public static Config getInstance() {
         if (INSTANCE == null) {
@@ -174,7 +173,7 @@ public final class Config {
         defaultConfig.put("watering_cans", wateringCans);
 
         NbtCompound fertilizers = new NbtCompound();
-        for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+        for (var fertilizer : ItemRegistry.FERTILIZER_ITEMS) {
             fertilizers.putBoolean("enable_" + fertilizer, true);
         }
         defaultConfig.put("fertilizer_items", fertilizers);
@@ -329,7 +328,7 @@ public final class Config {
 
         JsonObject fertilizerItems = new JsonObject();
         NbtCompound fertilizerItemsNbt = getCompoundOrDefault(tag, "fertilizer_items", defaults);
-        for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+        for (var fertilizer : ItemRegistry.FERTILIZER_ITEMS) {
             var fertilizerKey = "enable_" + fertilizer;
             fertilizerItems.addProperty(fertilizerKey, getBooleanOrDefault(fertilizerItemsNbt, fertilizerKey, defaults));
         }
@@ -428,7 +427,7 @@ public final class Config {
         if (json.has("fertilizer_items")) {
             var fertilizerItemsJson = json.get("fertilizer_items").getAsJsonObject();
             var defaultFertilizerItems = defaults.getCompound("fertilizer_items");
-            for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+            for (var fertilizer : ItemRegistry.FERTILIZER_ITEMS) {
                 var fertilizerKey = "enable_" + fertilizer;
                 fertilizerItems.putBoolean(fertilizerKey, getBooleanOrDefault(fertilizerItemsJson, fertilizerKey, defaultFertilizerItems));
             }

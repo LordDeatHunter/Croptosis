@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 import wraith.croptosis.item.FertilizerItem;
-import wraith.croptosis.util.CUtils;
 import wraith.croptosis.item.WateringCanItem;
+import wraith.croptosis.util.CUtils;
 import wraith.croptosis.util.Config;
 
 import java.util.HashMap;
@@ -14,14 +14,18 @@ import java.util.HashSet;
 
 public final class ItemRegistry {
 
-    public static final HashSet<String> FERTILIEZR_ITEMS = new HashSet<>();
-
-    private ItemRegistry() {}
-
+    public static final HashSet<String> FERTILIZER_ITEMS = new HashSet<>();
     private static final HashMap<String, Item> ITEMS = new HashMap<>();
     public static final ItemGroup CROPTOSIS = FabricItemGroupBuilder.create(CUtils.ID("croptosis")).icon(() -> new ItemStack(ItemRegistry.get("apatite"))).build();
 
-    private static void registerItem(String id, Item item){
+    static {
+        FERTILIZER_ITEMS.add("feather_meal");
+        FERTILIZER_ITEMS.add("rotten_pile");
+    }
+
+    private ItemRegistry() {}
+
+    private static void registerItem(String id, Item item) {
         ITEMS.put(id, Registry.register(Registry.ITEM, CUtils.ID(id), item));
     }
 
@@ -53,14 +57,9 @@ public final class ItemRegistry {
         registerItem("netherite_watering_can", new WateringCanItem(config.getWateringCanRange("netherite"), config.getWateringCanCapacity("netherite"), config.getWateringCanChance("netherite"), new FabricItemSettings().group(CROPTOSIS).fireproof()));
         registerItem("creative_watering_can", new WateringCanItem(10, -1, 1.0D, new FabricItemSettings().group(CROPTOSIS).fireproof()));
     }
-    
+
     public static Item get(String id) {
         return ITEMS.getOrDefault(id, Items.AIR);
-    }
-
-    static {
-        FERTILIEZR_ITEMS.add("feather_meal");
-        FERTILIEZR_ITEMS.add("rotten_pile");
     }
 
 }

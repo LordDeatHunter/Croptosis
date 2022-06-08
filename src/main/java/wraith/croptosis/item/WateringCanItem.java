@@ -12,10 +12,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -104,8 +102,8 @@ public class WateringCanItem extends Item {
                         BlockPos cropPos = new BlockPos(xPos + x, yPos + y, zPos + z);
                         BlockState state = world.getBlockState(cropPos);
                         if (state.getBlock() instanceof Fertilizable fertilizable) {
-                            if (fertilizable.isFertilizable(world, cropPos, state, false) && fertilizable.canGrow(world, CUtils.random, cropPos, state)) {
-                                fertilizable.grow((ServerWorld) world, CUtils.random, cropPos, state);
+                            if (fertilizable.isFertilizable(world, cropPos, state, false) && fertilizable.canGrow(world, world.random, cropPos, state)) {
+                                fertilizable.grow((ServerWorld) world, world.random, cropPos, state);
                             }
                         }
                     }
@@ -119,7 +117,7 @@ public class WateringCanItem extends Item {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         if (!Config.getInstance().allowWateringCans()) {
-            tooltip.add(new TranslatableText("tooltip.croptosis.watering_can.disabled"));
+            tooltip.add(Text.translatable("tooltip.croptosis.watering_can.disabled"));
             return;
         }
         if (!(stack.getItem() instanceof WateringCanItem wateringCan)) {
@@ -130,19 +128,19 @@ public class WateringCanItem extends Item {
         var fluidAmountStr = fluidAmount == -1 ? "∞" : String.valueOf(fluidAmount);
         var capacityStr = wateringCan.capacity == -1 ? "∞" : String.valueOf(wateringCan.capacity);
         // TODO: Make colored args work
-        tooltip.add(new TranslatableText(
-                "tooltip.croptosis.watering_can.range",
-                new LiteralText(String.valueOf(wateringCan.range)).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.range.arg_color").getString())))
+        tooltip.add(Text.translatable(
+            "tooltip.croptosis.watering_can.range",
+            Text.literal(String.valueOf(wateringCan.range)).styled(style -> style.withColor(TextColor.parse(Text.translatable("tooltip.croptosis.watering_can.range.arg_color").getString())))
         ));
-        tooltip.add(new TranslatableText(
-                "tooltip.croptosis.watering_can.fluid",
-                new LiteralText(fluidAmountStr).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color1").getString()))),
-                new LiteralText(capacityStr).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.fluid.arg_color2").getString())))
+        tooltip.add(Text.translatable(
+            "tooltip.croptosis.watering_can.fluid",
+            Text.literal(fluidAmountStr).styled(style -> style.withColor(TextColor.parse(Text.translatable("tooltip.croptosis.watering_can.fluid.arg_color1").getString()))),
+            Text.literal(capacityStr).styled(style -> style.withColor(TextColor.parse(Text.translatable("tooltip.croptosis.watering_can.fluid.arg_color2").getString())))
         ));
-        tooltip.add(new TranslatableText(
-                "tooltip.croptosis.watering_can.chance",
-                new LiteralText(CUtils.formatDouble(wateringCan.chance * 100)).styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.chance.arg_color").getString()))),
-                new LiteralText("%").styled(style -> style.withColor(TextColor.parse(new TranslatableText("tooltip.croptosis.watering_can.chance.percent_color").getString())))
+        tooltip.add(Text.translatable(
+            "tooltip.croptosis.watering_can.chance",
+            Text.literal(CUtils.formatDouble(wateringCan.chance * 100)).styled(style -> style.withColor(TextColor.parse(Text.translatable("tooltip.croptosis.watering_can.chance.arg_color").getString()))),
+            Text.literal("%").styled(style -> style.withColor(TextColor.parse(Text.translatable("tooltip.croptosis.watering_can.chance.percent_color").getString())))
         ));
     }
 

@@ -28,7 +28,7 @@ public class RecipeManagerMixin {
             }
         }
         var fertilizers = new HashSet<String>();
-        for (var fertilizer : ItemRegistry.FERTILIEZR_ITEMS) {
+        for (var fertilizer : ItemRegistry.FERTILIZER_ITEMS) {
             if (!Config.getInstance().isFertilizerItemEnabled(fertilizer)) {
                 fertilizers.add(fertilizer);
             }

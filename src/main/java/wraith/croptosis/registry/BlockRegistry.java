@@ -13,11 +13,11 @@ import java.util.HashMap;
 
 public class BlockRegistry {
 
-    private BlockRegistry() {}
-
     private static final HashMap<String, Block> BLOCKS = new HashMap<>();
 
-    private static void registerBlock(String id, Block block){
+    private BlockRegistry() {}
+
+    private static void registerBlock(String id, Block block) {
         BLOCKS.put(id, Registry.register(Registry.BLOCK, CUtils.ID(id), block));
     }
 

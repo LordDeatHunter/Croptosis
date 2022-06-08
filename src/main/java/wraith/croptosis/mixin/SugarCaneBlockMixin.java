@@ -5,12 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SugarCaneBlock;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import wraith.croptosis.util.CUtils;
-
-import java.util.Random;
 
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneBlockMixin {
@@ -21,7 +20,7 @@ public class SugarCaneBlockMixin {
     }
 
     private Block _this() {
-        return ((SugarCaneBlock)(Object)this);
+        return ((SugarCaneBlock) (Object) this);
     }
 
 }
