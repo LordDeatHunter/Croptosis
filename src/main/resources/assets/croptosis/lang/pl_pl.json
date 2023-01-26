@@ -1,0 +1,46 @@
+{
+  "block.croptosis.fertilized_sand": "Nawożony Piasek",
+  "block.croptosis.fertilized_dirt": "Nawożona Ziemia",
+  "block.croptosis.fertilized_farmland": "Nawożone Pole Uprawne",
+  "block.croptosis.potash_ore": "Ruda Potażu",
+  "block.croptosis.apatite_ore": "Ruda Apatytu",
+  "block.croptosis.deepslate_apatite_ore": "Łupkowa Ruda Apatytu",
+  "block.croptosis.apatite_block": "Blok Apatytu",
+  "block.croptosis.potash_block": "Blok Potażu",
+
+  "item.croptosis.fertilized_sand": "Nawożony Piasek",
+  "item.croptosis.fertilized_dirt": "Nawożona Ziemia",
+  "item.croptosis.fertilized_farmland": "Nawożone Pole Uprawne",
+  "item.croptosis.potash_ore": "Ruda Potażu",
+  "item.croptosis.apatite_ore": "Ruda Apatytu",
+  "item.croptosis.deepslate_apatite_ore": "Łupkowa Ruda Apatytu",
+  "item.croptosis.apatite_block": "Blok Apatytu",
+  "item.croptosis.potash_block": "Blok Potażu",
+
+  "item.croptosis.apatite": "Apatyt",
+  "item.croptosis.potash": "Potaż",
+  "item.croptosis.potash_pieces": "Kawałki Potażu",
+  "item.croptosis.feather_meal": "Mączka z Pierza",
+  "item.croptosis.rotten_pile": "Zgniła Papka",
+
+  "item.croptosis.iron_watering_can": "Żelazna Konewka",
+  "item.croptosis.gold_watering_can": "Złota Konewka",
+  "item.croptosis.diamond_watering_can": "Diamentowa Konewka",
+  "item.croptosis.netherite_watering_can": "Netherytowa Konewka",
+  "item.croptosis.creative_watering_can": "Konewka Trybu Kreaywnego",
+
+  "tooltip.croptosis.watering_can.disabled": "§8Wygląda na zepsutą...",
+  "tooltip.croptosis.watering_can.range": "§6Zasięg: %s",
+  "tooltip.croptosis.watering_can.fluid": "§6Płyn: %s§6/%s",
+  "tooltip.croptosis.watering_can.chance": "§6Szansa: %s%s",
+  "tooltip.croptosis.fertilizer_item": "§3Może być przydatne w rolnictwie...",
+  "tooltip.croptosis.fertilizer_item.disabled": "§8Może być przydatne w rolnictwie...",
+
+  "tooltip.croptosis.watering_can.range.arg_color": "#FFFF55",
+  "tooltip.croptosis.watering_can.fluid.arg_color1": "#FFFF55",
+  "tooltip.croptosis.watering_can.fluid.arg_color2": "#FFFF55",
+  "tooltip.croptosis.watering_can.chance.arg_color": "#FFFF55",
+  "tooltip.croptosis.watering_can.chance.percent_color": "#FFAA00",
+
+  "itemGroup.croptosis.croptosis": "Croptosis"
+}
