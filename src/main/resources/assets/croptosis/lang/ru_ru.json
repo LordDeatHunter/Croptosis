@@ -1,6 +1,6 @@
 {
   "block.croptosis.fertilized_sand": "Удобренный песок",
-  "block.croptosis.fertilized_dirt": "Удобренная грязь",
+  "block.croptosis.fertilized_dirt": "Удобренная земля",
   "block.croptosis.fertilized_farmland": "Удобренная сельскохозяйственная земля",
   "block.croptosis.potash_ore": "Калийная руда",
   "block.croptosis.apatite_ore": "Апатитовая руда",
@@ -9,7 +9,7 @@
   "block.croptosis.potash_block": "Калийный блок",
 
   "item.croptosis.fertilized_sand": "Удобренный песок",
-  "item.croptosis.fertilized_dirt": "Удобренная грязь",
+  "item.croptosis.fertilized_dirt": "Удобренная земля",
   "item.croptosis.fertilized_farmland": "Удобренная сельскохозяйственная земля",
   "item.croptosis.potash_ore": "Калийная руда",
   "item.croptosis.apatite_ore": "Апатитовая руда",
