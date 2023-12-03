@@ -1,0 +1,46 @@
+{
+  "block.croptosis.fertilized_sand": "Удобренный песок",
+  "block.croptosis.fertilized_dirt": "Удобренная земля",
+  "block.croptosis.fertilized_farmland": "Удобренная сельскохозяйственная земля",
+  "block.croptosis.potash_ore": "Калийная руда",
+  "block.croptosis.apatite_ore": "Апатитовая руда",
+  "block.croptosis.deepslate_apatite_ore": "Глубокосланцевая апатитовая руда",
+  "block.croptosis.apatite_block": "Апатитовый блок",
+  "block.croptosis.potash_block": "Калийный блок",
+
+  "item.croptosis.fertilized_sand": "Удобренный песок",
+  "item.croptosis.fertilized_dirt": "Удобренная земля",
+  "item.croptosis.fertilized_farmland": "Удобренная сельскохозяйственная земля",
+  "item.croptosis.potash_ore": "Калийная руда",
+  "item.croptosis.apatite_ore": "Апатитовая руда",
+  "item.croptosis.deepslate_apatite_ore": "Глубокая сланцевая апатитовая руда",
+  "item.croptosis.apatite_block": "Апатитовый блок",
+  "item.croptosis.potash_block": "Калийный блок",
+
+  "item.croptosis.apatite": "Апатит",
+  "item.croptosis.potash": "Карбонат калия",
+  "item.croptosis.potash_pieces": "Кусочки калия",
+  "item.croptosis.feather_meal": "Перьевая мука",
+  "item.croptosis.rotten_pile": "Гнилая куча",
+
+  "item.croptosis.iron_watering_can": "Железная лейка",
+  "item.croptosis.gold_watering_can": "Золотая лейка",
+  "item.croptosis.diamond_watering_can": "Алмазная лейка",
+  "item.croptosis.netherite_watering_can": "Незеритовая лейка",
+  "item.croptosis.creative_watering_can": "Креативная лейка",
+
+  "tooltip.croptosis.watering_can.disabled": "§8Кажется, он сломан...",
+  "tooltip.croptosis.watering_can.range": "§6Диапазон: %s",
+  "tooltip.croptosis.watering_can.fluid": "§6Жидкость: %s§6/%s",
+  "tooltip.croptosis.watering_can.chance": "§6Шанс: %s%s",
+  "tooltip.croptosis.fertilizer_item": "§3Это может быть полезно для сельского хозяйства...",
+  "tooltip.croptosis.fertilizer_item.disabled": "§8Это может быть бесполезно для фермерства...",
+
+  "tooltip.croptosis.watering_can.range.arg_color": "#FFFF55",
+  "tooltip.croptosis.watering_can.fluid.arg_color1": "#FFFF55",
+  "tooltip.croptosis.watering_can.fluid.arg_color2": "#FFFF55",
+  "tooltip.croptosis.watering_can.chance.arg_color": "#FFFF55",
+  "tooltip.croptosis.watering_can.chance.percent_color": "#FFAA00",
+
+  "itemGroup.croptosis.croptosis": "Croptosis"
+}
